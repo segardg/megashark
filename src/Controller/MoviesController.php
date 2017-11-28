@@ -40,6 +40,8 @@ class MoviesController extends AppController
 
         $this->set('movie', $movie);
         $this->set('_serialize', ['movie']);
+        
+
     }
 
     /**
@@ -52,7 +54,7 @@ class MoviesController extends AppController
         $movie = $this->Movies->newEntity();
         if ($this->request->is('post')) {
             $movie = $this->Movies->patchEntity($movie, $this->request->getData());
-            if ($this->Moviesave($movie)) {
+            if ($this->Movies->save($movie)) {
                 $this->Flash->success(__('The movie has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
@@ -107,4 +109,7 @@ class MoviesController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+    
+    
 }
+
