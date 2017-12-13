@@ -35,10 +35,18 @@ class RoomsController extends AppController
      */
     public function view($id = null)
     {
-        $room = $this->Rooms->get($id);
-
+        $room = $this->Rooms->get($id, [
+            'contain' => ['Showtimes']
+        ]);
+        $room-> Showtimes;
+        $timeMonday=new \DateTime('monday this week');
+        $timeSunday=new \DateTime('monday next week');
+        $movies = $this->Rooms->Showtimes->find()->where(['room_id' => $room->id, 'start BETWEEN? AND?' => (array($timeMonday,$timeSunday)) ]); ////ICIIIIIIII !
+        $this->set('movie', $movies);
         $this->set('room', $room);
-        $this->set('_serialize', ['room']);
+        $this->set('timem', $timeMonday);
+        $this->set('times', $timeSunday);
+        $this->set('_serialize', ['room', 'movie','timem','times']);
         
         //$showtimes=$this->Movies->Showtimes->find();
         //$this->set('showtimes',$showtimes);
@@ -61,6 +69,7 @@ class RoomsController extends AppController
             }
             $this->Flash->error(__('The room could not be saved. Please, try again.'));
         }
+        
         $this->set(compact('room'));
         $this->set('_serialize', ['room']);
     }

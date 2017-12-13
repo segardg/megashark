@@ -53,8 +53,8 @@ class ShowtimesController extends AppController
      */
     public function add()
     {
-        $movies =$this->Showtimes->Movies->find('List');
-        $rooms = $this->Showtimes->Rooms->find('List');
+       
+        
         
         $showtime = $this->Showtimes->newEntity();
         if ($this->request->is('post')) {
