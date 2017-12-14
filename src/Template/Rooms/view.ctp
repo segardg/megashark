@@ -39,18 +39,31 @@
             <td><?= h($room->modified) ?></td>
         </tr>
     </table>
+    
+    
+    
     <table class="vertical-table">
-    <?php 
-    for($i=1;$i<=7;$i++){?>
-    <td>
-     <?php foreach ($collection[$i] as $showtime){?>
-         <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= h($showtime->start) ?></td>
-        </tr>               
+        <tr>
+            <th scope="col"><?= __('Lundi') ?></th>
+            <th scope="col"><?= __('Mardi') ?></th>
+            <th scope="col"><?= __('Mercredi') ?></th>
+            <th scope="col"><?= __('Jeudi') ?></th>
+            <th scope="col"><?= __('Vendredi') ?></th>
+            <th scope="col"><?= __('Samedi') ?></th>
+            <th scope="col"><?= __('Dimanche') ?></th>
+        </tr>
+    <?php foreach ($collection as $showtime){?>
+    <tr>
+    <?php for($i=1;$i<=7;$i++){ 
+        if(isset($collection[$i])){
+            foreach($collection[$i] as $value)?>
+            <td><?= h($value['movie_id']) ?></td>
+        <?php ;}
+        else{ ?>
+            <td></td>
+        <?php } } ?>
+    </tr>   
     <?php } ?>
-    </td> 
-     <?php } ?>
     </table>
 
 </div>
