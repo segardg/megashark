@@ -39,5 +39,18 @@
             <td><?= h($room->modified) ?></td>
         </tr>
     </table>
+    <table class="vertical-table">
+    <?php 
+    for($i=1;$i<=7;$i++){?>
+    <td>
+     <?php foreach ($collection[$i] as $showtime){?>
+         <tr>
+            <th scope="row"><?= __('Id') ?></th>
+            <td><?= h($showtime->start) ?></td>
+        </tr>               
+    <?php } ?>
+    </td> 
+     <?php } ?>
+    </table>
 
 </div>

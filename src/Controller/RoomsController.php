@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Collection\Collection;
 
 /**
  * Rooms Controller
@@ -41,10 +42,17 @@ class RoomsController extends AppController
         $room-> Showtimes;
         $timeMonday=new \DateTime('monday this week');
         $timeSunday=new \DateTime('monday next week');
-        $movies = $this->Rooms->Showtimes->find()->where(['room_id' => $room->id, 'start <=' =>$timeSunday, 'start >='=>$timeMonday]); 
+        $movies = $this->Rooms->Showtimes->find()->where(['room_id' => $room->id, 'start <=' =>$timeSunday, 'start >='=>$timeMonday]);
+        
+        $collection =(new Collection($movies))->groupBy(function ($showtime) {
+            return $showtime->start->format('N');
+        });
+        
+        $this->set('collection', $collection->toArray());
         $this->set('movie', $movies);
         $this->set('room', $room);
-        $this->set('_serialize', ['room', 'movie']);
+        $this->set('_serialize', ['room', 'movie','collection']);
+        
         
         //$showtimes=$this->Movies->Showtimes->find();
         //$this->set('showtimes',$showtimes);
