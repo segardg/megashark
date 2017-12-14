@@ -52,18 +52,18 @@
             <th scope="col"><?= __('Samedi') ?></th>
             <th scope="col"><?= __('Dimanche') ?></th>
         </tr>
-    <?php foreach ($collection as $showtime){?>
     <tr>
-    <?php for($i=1;$i<=7;$i++){ 
-        if(isset($collection[$i])){
-            foreach($collection[$i] as $value)?>
-            <td><?= h($value['movie_id']) ?></td>
-        <?php ;}
-        else{ ?>
-            <td></td>
-        <?php } } ?>
-    </tr>   
-    <?php } ?>
+    <?php for($i=1;$i<=7;$i++): ?>
+    <td>
+            <?php if(isset($collection[$i])):?>
+            <?php foreach($collection[$i] as $showtime):?>
+            <?= $showtime->movie->name ?>
+            <?= $showtime->start->format('H:i') ?>
+            <?php endforeach; ?>        
+            <?php endif; ?>
+    </td>
+    <?php endfor; ?>
+    </tr>
     </table>
 
 </div>

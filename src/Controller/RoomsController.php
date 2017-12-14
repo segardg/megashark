@@ -42,7 +42,7 @@ class RoomsController extends AppController
         $room-> Showtimes;
         $timeMonday=new \DateTime('monday this week');
         $timeSunday=new \DateTime('monday next week');
-        $movies = $this->Rooms->Showtimes->find()->where(['room_id' => $room->id, 'start <=' =>$timeSunday, 'start >='=>$timeMonday]);
+        $movies = $this->Rooms->Showtimes->find()->where(['room_id' => $room->id, 'start <' =>$timeSunday, 'start >='=>$timeMonday])-> contain(['Movies']);
         
         $collection =(new Collection($movies))->groupBy(function ($showtime) {
             return $showtime->start->format('N');
